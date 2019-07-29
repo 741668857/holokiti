@@ -7,56 +7,70 @@
 //
 
 #import "ViewController.h"
-#import "ViewC02.h"
+
 
 @interface ViewController ()
 
 @end
 
 @implementation ViewController
-@synthesize stepper=_stepper;
-@synthesize seg=_seg;
+@synthesize alertview=_alertview;
+@synthesize indicator=_indicator;
+
 
 
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _stepper=[[UIStepper alloc]init];
-    //宽度可变，高度不变
-    _stepper.frame=CGRectMake(50, 50, 30, 0);
-    _stepper.minimumValue=0;
-    _stepper.maximumValue=9000;
-    _stepper.value=100;
-    _stepper.stepValue=100;
-    [self.view addSubview:_stepper];
-    [_stepper addTarget:self action:@selector(stepchange) forControlEvents:UIControlEventValueChanged];
-    //是否一直显示步进结果
-    _stepper.continuous=YES;
+    for(int i=0;i<2;i++){
+        UIButton* btn=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+        btn.frame=CGRectMake(100, 100+100*i, 150, 50);
+        
+        if(i==0){
+            [btn setTitle:@"警告对话框" forState:UIControlStateNormal];
+        }
+        if(i==1){
+            [btn setTitle:@"等待提示对话框" forState:UIControlStateNormal];
+        }
+        [self.view addSubview:btn];
+        [btn addTarget:self action:@selector(pressOn:) forControlEvents:UIControlEventTouchUpInside];
+        btn.tag=101+i;
+    }
     
-    _seg=[[UISegmentedControl alloc]init];
-    _seg.frame=CGRectMake(7, 200, 400, 40);
-    [_seg insertSegmentWithTitle:@"好" atIndex:0 animated:NO];
-    [_seg insertSegmentWithTitle:@"很好" atIndex:1 animated:NO];
-    [_seg insertSegmentWithTitle:@"非常好" atIndex:2 animated:NO];
-    
-    _seg.selectedSegmentIndex=0;
-    
-    [_seg addTarget:self action:@selector(presson) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:_seg];
-    
-   
-    // Do any additional setup after loading the view, typically from a nib.
 }
 
--(void)presson{
-    NSLog(@"%d",_seg.selectedSegmentIndex);
+-(void)pressOn:(UIButton*)btn{
+    if(btn.tag==101){
+        //创建警告对话框
+        _alertview=[[UIAlertView alloc] initWithTitle:@"电池电量过低" message:@"电池电量只有20%了崽种" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好的-。-", @"去你的=w=",@"超级节电模式启动OWO", nil];
+        [_alertview show];
+        
+    }
+    else if(btn.tag==102){
+        //创建等待指示器
+        _indicator=[[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(200, 300, 0, 0)];
+        _indicator.activityIndicatorViewStyle=UIActivityIndicatorViewStyleGray;
+        [_indicator startAnimating];
+        [self.view addSubview:_indicator];
+        
+    }
 }
 
--(void)stepchange{
-    NSLog(@"value= %f",_stepper.value);
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    NSLog(@"点击对话框😜");
 }
 
+-(void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex{
+    NSLog(@"对话框即将消失");
+}
+
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    NSLog(@"对话框已经消失");
+}
+
+
+    
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

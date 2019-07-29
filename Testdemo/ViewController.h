@@ -8,14 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<UIAlertViewDelegate>
 {
-    UIStepper* _stepper;
-    UISegmentedControl* _seg;
+    //警告对话框对象
+    UIAlertView* _alertview;
+    //等待提示对象
+    UIActivityIndicatorView* _indicator;
 }
 
-@property(retain,nonatomic) UIStepper* stepper;
-@property(retain,nonatomic)UISegmentedControl* seg;
+@property(retain,nonatomic)UIAlertView* alertview;
+@property(retain,nonatomic)UIActivityIndicatorView* indicator;
+
 
 @end
 
