@@ -19,26 +19,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.textfield=[[UITextField alloc]init];
-    self.textfield.frame=CGRectMake(100, 100, 200, 50);
-    self.textfield.text=@"HALLO";
-    self.textfield.font=[UIFont systemFontOfSize:15];
-    self.textfield.textColor=[UIColor blackColor];
+    _textfield=[[UITextField alloc]init];
+    _textfield.frame=CGRectMake(100, 100, 200, 50);
+    _textfield.text=@"HALLO";
+    _textfield.font=[UIFont systemFontOfSize:15];
+    _textfield.textColor=[UIColor blackColor];
     //边框风格
-    self.textfield.borderStyle=UITextBorderStyleRoundedRect;
-    self.textfield.keyboardType=UIKeyboardTypeDefault;
+    _textfield.borderStyle=UITextBorderStyleRoundedRect;
+    _textfield.keyboardType=UIKeyboardTypeDefault;
     //没有内容时的提示信息
-    self.textfield.placeholder=@"写d野啦唔该";
+    _textfield.placeholder=@"写d野啦唔该";
     //是否作为密码输入
-    self.textfield.secureTextEntry=NO;
-    [self.view addSubview:self.textfield];
+    _textfield.secureTextEntry=NO;
+    [self.view addSubview:_textfield];
+    //代理
+    _textfield.delegate=self;
     
 }
 
 //点击屏幕空白出调用次函数，使虚拟键盘回收不再作为第一响应
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     //self.textfield.text=@"";
-    [self.textfield resignFirstResponder];
+    [_textfield resignFirstResponder];
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
@@ -51,12 +53,12 @@
 
 //是否可以进行输入
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    return NO;
+    return YES;
 }
 
 //是否可以结束输入
 -(BOOL)textFieldShouldEndEditing:(UITextField *)textField{
-    return NO;
+    return YES;
 }
 
 
