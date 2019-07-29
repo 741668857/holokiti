@@ -14,50 +14,45 @@
 @end
 
 @implementation ViewController
+@synthesize pView=_proview;
+@synthesize sliber=_sliber;
 
 
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIButton* btn=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [btn setTitle:@"启动定时器" forState:UIControlStateNormal];
-    [btn setTintColor:[UIColor blueColor]];
-    btn.frame=CGRectMake(100, 100, 150, 100);
-    btn.titleLabel.font=[UIFont systemFontOfSize:21];
-    [self.view addSubview:btn];
-    [btn addTarget:self action:@selector(pressOn) forControlEvents:UIControlStateHighlighted];
+    _proview=[[UIProgressView alloc]init];
+    _proview.frame=CGRectMake(0, 100, 400, 20);
+    [self.view addSubview:_proview];
+    //进度条颜色
+    _proview.progressTintColor=[UIColor redColor];
+    _proview.progress=0.6;
+    //进度条类型
+    _proview.progressViewStyle=UIProgressViewStyleBar;
+    //进度条背景颜色
+    _proview.trackTintColor=[UIColor blueColor];
     
-    
-    UIButton* btn1=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [btn1 setTitle:@"关闭定时器" forState:UIControlStateNormal];
-    btn1.frame=CGRectMake(100, 150, 150, 50);
-    [self.view addSubview:btn1];
-    [btn1 addTarget:self action:@selector(pressDown) forControlEvents:UIControlStateHighlighted];
-    
-    UIView* view=[[UIView alloc]init];
-    view.frame=CGRectMake(0, 0, 100, 100);
-    view.backgroundColor=[UIColor blueColor];
-    [self.view addSubview:view];
-    view.tag=101;
-    
+    _sliber=[[UISlider alloc]init];
+    _sliber.frame=CGRectMake(0, 200, 400, 20);
+    _sliber.maximumValue=100;
+    _sliber.minimumValue=-120;
+    _sliber.value=6;
+    _sliber.minimumTrackTintColor=[UIColor redColor];
+    _sliber.maximumTrackTintColor=[UIColor blackColor];
+    [self.view addSubview:_sliber];
+    _sliber.thumbTintColor=[UIColor blueColor];
+    //添加滑动条时间
+    [_sliber addTarget:self action:@selector(sliber1) forControlEvents:UIControlEventValueChanged];
+   
     // Do any additional setup after loading the view, typically from a nib.
 }
 
--(void) pressOn{
-    timeview1=[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateTimer:) userInfo:@"xioaming" repeats:YES];
+-(void)sliber1{
+    _proview.progress=(_sliber.value-_sliber.minimumValue)/(_sliber.maximumValue-_sliber.minimumValue);
+    NSLog(@"%f",_sliber.value );
 }
 
--(void)updateTimer:(NSTimer*)timer{
-    NSLog(@"test name=%@",timer.userInfo);
-    UIView* view=[self.view viewWithTag:101];
-    view.frame=CGRectMake(view.frame.origin.x+5,view.frame.origin.y+5, 100,100);
-    
-}
-
--(void)pressDown{
-    [timeview1 invalidate];
-}
 
 
 - (void)didReceiveMemoryWarning {

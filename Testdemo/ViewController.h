@@ -10,9 +10,11 @@
 
 @interface ViewController : UIViewController
 {
-    NSTimer* timeview1;
+    UIProgressView* _proview;
+    UISlider* _sliber;
 }
 
-
+@property(retain,nonatomic) UIProgressView* pView;
+@property(retain,nonatomic)UISlider* sliber;
 @end
 
