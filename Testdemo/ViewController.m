@@ -20,30 +20,44 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"视图第一次被加载");
-    self.view.backgroundColor=[UIColor greenColor];
+    UIButton* btn=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [btn setTitle:@"启动定时器" forState:UIControlStateNormal];
+    [btn setTintColor:[UIColor blueColor]];
+    btn.frame=CGRectMake(100, 100, 150, 100);
+    btn.titleLabel.font=[UIFont systemFontOfSize:21];
+    [self.view addSubview:btn];
+    [btn addTarget:self action:@selector(pressOn) forControlEvents:UIControlStateHighlighted];
+    
+    
+    UIButton* btn1=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [btn1 setTitle:@"关闭定时器" forState:UIControlStateNormal];
+    btn1.frame=CGRectMake(100, 150, 150, 50);
+    [self.view addSubview:btn1];
+    [btn1 addTarget:self action:@selector(pressDown) forControlEvents:UIControlStateHighlighted];
+    
+    UIView* view=[[UIView alloc]init];
+    view.frame=CGRectMake(0, 0, 100, 100);
+    view.backgroundColor=[UIColor blueColor];
+    [self.view addSubview:view];
+    view.tag=101;
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    NSLog(@"第一个视图即将出现");
+-(void) pressOn{
+    timeview1=[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateTimer:) userInfo:@"xioaming" repeats:YES];
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    NSLog(@"第一个视图已经显示");
+-(void)updateTimer:(NSTimer*)timer{
+    NSLog(@"test name=%@",timer.userInfo);
+    UIView* view=[self.view viewWithTag:101];
+    view.frame=CGRectMake(view.frame.origin.x+5,view.frame.origin.y+5, 100,100);
+    
 }
 
--(void)viewDidDisappear:(BOOL)animated{
-    NSLog(@"第一个视图已经消失");
+-(void)pressDown{
+    [timeview1 invalidate];
 }
-
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    //创建视图控制器二
-    ViewC02* vc1=[[ViewC02 alloc]init];
-    //显示一个新的视图控制器到屏幕上
-    [self presentViewController:vc1 animated:YES completion:nil];
-}
-
 
 
 - (void)didReceiveMemoryWarning {
