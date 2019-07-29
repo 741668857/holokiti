@@ -9,12 +9,16 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController<UITextFieldDelegate>{
-    
-    UITextField* _textfield;
+    UILabel* _lbusername;
+    UILabel* _lbpassword;
+    UITextField* _tfusername;
+    UITextField* _tfpassword;
+    UIButton* _btlogin;
+    UIButton* _btregister;
+ 
 }
 
-@property(retain,nonatomic) UITextField* textfield;
- 
+
 
 @end
 
