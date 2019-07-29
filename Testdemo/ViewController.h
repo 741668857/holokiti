@@ -10,11 +10,10 @@
 
 @interface ViewController : UIViewController
 {
-    UIProgressView* _proview;
-    UISlider* _sliber;
+      UISwitch* _myswitch;
 }
 
-@property(retain,nonatomic) UIProgressView* pView;
-@property(retain,nonatomic)UISlider* sliber;
+@property(retain,nonatomic) UISwitch* myswitch;
+
 @end
 
