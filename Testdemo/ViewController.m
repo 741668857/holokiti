@@ -14,63 +14,53 @@
 @end
 
 @implementation ViewController
-@synthesize alertview=_alertview;
-@synthesize indicator=_indicator;
-
-
-
+@synthesize textfield=_textfield;
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    for(int i=0;i<2;i++){
-        UIButton* btn=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-        btn.frame=CGRectMake(100, 100+100*i, 150, 50);
-        
-        if(i==0){
-            [btn setTitle:@"警告对话框" forState:UIControlStateNormal];
-        }
-        if(i==1){
-            [btn setTitle:@"等待提示对话框" forState:UIControlStateNormal];
-        }
-        [self.view addSubview:btn];
-        [btn addTarget:self action:@selector(pressOn:) forControlEvents:UIControlEventTouchUpInside];
-        btn.tag=101+i;
-    }
+    self.textfield=[[UITextField alloc]init];
+    self.textfield.frame=CGRectMake(100, 100, 200, 50);
+    self.textfield.text=@"HALLO";
+    self.textfield.font=[UIFont systemFontOfSize:15];
+    self.textfield.textColor=[UIColor blackColor];
+    //边框风格
+    self.textfield.borderStyle=UITextBorderStyleRoundedRect;
+    self.textfield.keyboardType=UIKeyboardTypeDefault;
+    //没有内容时的提示信息
+    self.textfield.placeholder=@"写d野啦唔该";
+    //是否作为密码输入
+    self.textfield.secureTextEntry=NO;
+    [self.view addSubview:self.textfield];
     
 }
 
--(void)pressOn:(UIButton*)btn{
-    if(btn.tag==101){
-        //创建警告对话框
-        _alertview=[[UIAlertView alloc] initWithTitle:@"电池电量过低" message:@"电池电量只有20%了崽种" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好的-。-", @"去你的=w=",@"超级节电模式启动OWO", nil];
-        [_alertview show];
-        
-    }
-    else if(btn.tag==102){
-        //创建等待指示器
-        _indicator=[[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(200, 300, 0, 0)];
-        _indicator.activityIndicatorViewStyle=UIActivityIndicatorViewStyleGray;
-        [_indicator startAnimating];
-        [self.view addSubview:_indicator];
-        
-    }
+//点击屏幕空白出调用次函数，使虚拟键盘回收不再作为第一响应
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    //self.textfield.text=@"";
+    [self.textfield resignFirstResponder];
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSLog(@"点击对话框😜");
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    NSLog(@"开始编辑");
 }
 
--(void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex{
-    NSLog(@"对话框即将消失");
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    NSLog(@"结束编译");
 }
 
--(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    NSLog(@"对话框已经消失");
+//是否可以进行输入
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    return NO;
+}
+
+//是否可以结束输入
+-(BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    return NO;
 }
 
 
-    
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
