@@ -16,32 +16,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //创建一个UIwindow对象
-    self.window=[[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    //创建一个视图控制器作为UIwindow的跟视图控制器
-    self.window.rootViewController=[[UIViewController alloc]init];
-    self.window.backgroundColor=[UIColor blueColor];
-    //使window有效并显示在屏幕上
-    [self.window makeKeyAndVisible];
-    
-    
-    UIView* view=[[UIView alloc]initWithFrame:CGRectMake(100, 100, 50, 50)];
-    view.backgroundColor=[UIColor greenColor];
-    
-    
-    UIView* backview=[[UIView alloc]initWithFrame:CGRectMake(100, 80, 30, 30)];
-    backview.backgroundColor=[UIColor whiteColor];
-    
-    [backview addSubview:view];
-    [self.window addSubview:backview];
-    
-    backview.window;
-    view.window;
-    self.window;
-    
-    NSLog(@"%@",view.window);
-    NSLog(@"%@",backview.window);
-    NSLog(@"%@",self.window);
     
     // Override point for customization after application launch.
     return YES;
