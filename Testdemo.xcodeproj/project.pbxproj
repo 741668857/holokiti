@@ -15,7 +15,6 @@
 		64E5A9D422EE6F15007384D9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E5A9D322EE6F15007384D9 /* main.m */; };
 		64E5A9DB22EE742F007384D9 /* UNADJUSTEDNONRAW_thumb_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 64E5A9DA22EE742F007384D9 /* UNADJUSTEDNONRAW_thumb_1.jpg */; };
 		64E5A9DD22EE7435007384D9 /* UNADJUSTEDNONRAW_thumb_5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 64E5A9DC22EE7435007384D9 /* UNADJUSTEDNONRAW_thumb_5.jpg */; };
-		64E5A9E022EE7C71007384D9 /* ViewC02.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E5A9DF22EE7C71007384D9 /* ViewC02.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,8 +30,6 @@
 		64E5A9D322EE6F15007384D9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		64E5A9DA22EE742F007384D9 /* UNADJUSTEDNONRAW_thumb_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = UNADJUSTEDNONRAW_thumb_1.jpg; path = "../../Pictures/照片图库.photoslibrary/resources/proxies/derivatives/00/00/1/UNADJUSTEDNONRAW_thumb_1.jpg"; sourceTree = "<group>"; };
 		64E5A9DC22EE7435007384D9 /* UNADJUSTEDNONRAW_thumb_5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = UNADJUSTEDNONRAW_thumb_5.jpg; path = "../../Pictures/照片图库.photoslibrary/resources/proxies/derivatives/00/00/5/UNADJUSTEDNONRAW_thumb_5.jpg"; sourceTree = "<group>"; };
-		64E5A9DE22EE7C71007384D9 /* ViewC02.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewC02.h; sourceTree = "<group>"; };
-		64E5A9DF22EE7C71007384D9 /* ViewC02.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewC02.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,8 +68,6 @@
 				64E5A9C522EE6F14007384D9 /* AppDelegate.m */,
 				64E5A9C722EE6F14007384D9 /* ViewController.h */,
 				64E5A9C822EE6F14007384D9 /* ViewController.m */,
-				64E5A9DE22EE7C71007384D9 /* ViewC02.h */,
-				64E5A9DF22EE7C71007384D9 /* ViewC02.m */,
 				64E5A9CA22EE6F14007384D9 /* Main.storyboard */,
 				64E5A9CD22EE6F15007384D9 /* Assets.xcassets */,
 				64E5A9CF22EE6F15007384D9 /* LaunchScreen.storyboard */,
@@ -154,7 +149,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64E5A9E022EE7C71007384D9 /* ViewC02.m in Sources */,
 				64E5A9C922EE6F14007384D9 /* ViewController.m in Sources */,
 				64E5A9D422EE6F15007384D9 /* main.m in Sources */,
 				64E5A9C622EE6F14007384D9 /* AppDelegate.m in Sources */,

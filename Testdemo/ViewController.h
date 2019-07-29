@@ -10,10 +10,12 @@
 
 @interface ViewController : UIViewController
 {
-      UISwitch* _myswitch;
+    UIStepper* _stepper;
+    UISegmentedControl* _seg;
 }
 
-@property(retain,nonatomic) UISwitch* myswitch;
+@property(retain,nonatomic) UIStepper* stepper;
+@property(retain,nonatomic)UISegmentedControl* seg;
 
 @end
 

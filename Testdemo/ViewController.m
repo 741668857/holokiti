@@ -14,37 +14,47 @@
 @end
 
 @implementation ViewController
-@synthesize myswitch=_myswitch;
+@synthesize stepper=_stepper;
+@synthesize seg=_seg;
 
 
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UISwitch* _myswitch=[[UISwitch alloc]init];
-    _myswitch.frame=CGRectMake(50, 50, 0, 0);
-    [self.view addSubview:_myswitch];
-    _myswitch.on=YES;
-    //开关开启状态颜色
-    [_myswitch setOnTintColor:[UIColor blueColor]];
-    //开关圆按钮颜色
-    [_myswitch setThumbTintColor:[UIColor grayColor]];
-    //开关整体颜色
-    [_myswitch setTintColor:[UIColor yellowColor]];
+    _stepper=[[UIStepper alloc]init];
+    //宽度可变，高度不变
+    _stepper.frame=CGRectMake(50, 50, 30, 0);
+    _stepper.minimumValue=0;
+    _stepper.maximumValue=9000;
+    _stepper.value=100;
+    _stepper.stepValue=100;
+    [self.view addSubview:_stepper];
+    [_stepper addTarget:self action:@selector(stepchange) forControlEvents:UIControlEventValueChanged];
+    //是否一直显示步进结果
+    _stepper.continuous=YES;
     
-    [_myswitch addTarget:self action:@selector(swchange:) forControlEvents:UIControlEventValueChanged];
+    _seg=[[UISegmentedControl alloc]init];
+    _seg.frame=CGRectMake(7, 200, 400, 40);
+    [_seg insertSegmentWithTitle:@"好" atIndex:0 animated:NO];
+    [_seg insertSegmentWithTitle:@"很好" atIndex:1 animated:NO];
+    [_seg insertSegmentWithTitle:@"非常好" atIndex:2 animated:NO];
+    
+    _seg.selectedSegmentIndex=0;
+    
+    [_seg addTarget:self action:@selector(presson) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:_seg];
+    
    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
-- (void)swchange:(UISwitch*) sw{
-    if(sw.on==YES){
-        NSLog(@"开关打开");
-    }
-    else{
-        NSLog(@"开关关闭");
-    }
-    
+-(void)presson{
+    NSLog(@"%d",_seg.selectedSegmentIndex);
+}
+
+-(void)stepchange{
+    NSLog(@"value= %f",_stepper.value);
 }
 
 
