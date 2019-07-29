@@ -14,34 +14,46 @@
 
 @implementation ViewController
 
--(void) createUIbutton{
-    UIButton* btn=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn.frame=CGRectMake(100, 100, 200 ,100);
-    [btn setTitle:@"abc" forState:UIControlStateNormal];
-    [btn setTitle:@"ppp" forState:UIControlStateHighlighted];
-    [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];
-    btn.titleLabel.font=[UIFont systemFontOfSize:30];
-    [self.view addSubview:btn];
+-(void) UIbutton{
+    UIButton* btn0=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton* btn1=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn0.frame=CGRectMake(100, 100, 100, 100);
+    btn1.frame=CGRectMake(0, 200, 300, 100);
+    btn0.titleLabel.font=[UIFont systemFontOfSize:50];
+    btn1.titleLabel.font=[UIFont systemFontOfSize:50];
+    [btn0 setTitle:@"abc" forState:UIControlStateNormal];
+    [btn1 setTitle:@"qpqp" forState:UIControlStateNormal];
+    [btn0 addTarget:self action:@selector(pressbtn:) forControlEvents:UIControlEventTouchUpInside];
+    [btn1 addTarget:self action:@selector(pressbtn:) forControlEvents:UIControlEventTouchUpInside];
+    [btn0 addTarget:self action:@selector(losebtn) forControlEvents:UIControlEventTouchDown];
+    [btn1 addTarget:self action:@selector(losebtn) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:btn0];
+    [self.view addSubview:btn1];
+    btn0.tag=100;
+    btn1.tag=101;
+    
 }
 
--(void) createImgbtn{
-    UIButton* imgbtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    imgbtn.frame=CGRectMake(70, 200, 300, 300);
-    UIImage* icon1=[UIImage imageNamed:@"UNADJUSTEDNONRAW_thumb_1.jpg"];
-    UIImage* icon2=[UIImage imageNamed:@"UNADJUSTEDNONRAW_thumb_5.jpg"];
-    [imgbtn setImage:icon1 forState:UIControlStateNormal];
-    [imgbtn setImage:icon2 forState:UIControlStateHighlighted];
-    [self.view addSubview:imgbtn];
+
+-(void) losebtn{
+    NSLog(@"触碰到按钮");
+}
+
+-(void)pressbtn:(UIButton*)btn{
+    if(btn.tag==100){
+        NSLog(@"第一个手指松开");
+    }
     
+    if(btn.tag==101){
+        NSLog(@"第二个手指松开");
+    }
     
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self createUIbutton];
-    [self createImgbtn];
+    [self UIbutton];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
