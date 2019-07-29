@@ -18,7 +18,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [super viewDidLoad];
     UIView* view01=[[UIView alloc] init];
     view01.frame=CGRectMake(100, 100, 200, 200);
     view01.backgroundColor=[UIColor blueColor];
