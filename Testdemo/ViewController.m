@@ -14,46 +14,37 @@
 
 @implementation ViewController
 
--(void) UIbutton{
-    UIButton* btn0=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    UIButton* btn1=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn0.frame=CGRectMake(100, 100, 100, 100);
-    btn1.frame=CGRectMake(0, 200, 300, 100);
-    btn0.titleLabel.font=[UIFont systemFontOfSize:50];
-    btn1.titleLabel.font=[UIFont systemFontOfSize:50];
-    [btn0 setTitle:@"abc" forState:UIControlStateNormal];
-    [btn1 setTitle:@"qpqp" forState:UIControlStateNormal];
-    [btn0 addTarget:self action:@selector(pressbtn:) forControlEvents:UIControlEventTouchUpInside];
-    [btn1 addTarget:self action:@selector(pressbtn:) forControlEvents:UIControlEventTouchUpInside];
-    [btn0 addTarget:self action:@selector(losebtn) forControlEvents:UIControlEventTouchDown];
-    [btn1 addTarget:self action:@selector(losebtn) forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:btn0];
-    [self.view addSubview:btn1];
-    btn0.tag=100;
-    btn1.tag=101;
-    
-}
-
-
--(void) losebtn{
-    NSLog(@"触碰到按钮");
-}
-
--(void)pressbtn:(UIButton*)btn{
-    if(btn.tag==100){
-        NSLog(@"第一个手指松开");
-    }
-    
-    if(btn.tag==101){
-        NSLog(@"第二个手指松开");
-    }
-    
-}
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self UIbutton];
+    [super viewDidLoad];
+    UIView* view01=[[UIView alloc] init];
+    view01.frame=CGRectMake(100, 100, 200, 200);
+    view01.backgroundColor=[UIColor blueColor];
+    
+    UIView* view02=[[UIView alloc] init];
+    view02.frame=CGRectMake(150, 150, 200, 200);
+    view02.backgroundColor=[UIColor greenColor];
+    
+    UIView* view03=[[UIView alloc] init];
+    view03.frame=CGRectMake(200, 200, 200, 200);
+    view03.backgroundColor=[UIColor blackColor];
+    
+    [self.view addSubview:view02];
+    [self.view addSubview:view03];
+    [self.view addSubview:view01];
+    
+    [self.view bringSubviewToFront:view01];
+    [self.view sendSubviewToBack:view03];
+    
+    
+    UIView* viewfront=self.view.subviews[0];
+    if(viewfront==view03){
+        NSLog(@"hahaha");
+    }
+    
+
     // Do any additional setup after loading the view, typically from a nib.
 }
 
