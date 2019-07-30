@@ -19,67 +19,52 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    scro=[[UIScrollView alloc]init];
-    scro.frame=CGRectMake(0, 20, 420, 682);
-    //是否整页滚动视图
-    scro.pagingEnabled=YES;
-    //是否开启滚动效果
-    scro.scrollEnabled=YES;
-    //画布的大小，显示在滚动视图内部 一般小于等于frame大小
-    scro.contentSize=CGSizeMake(420, 682*3);
-    scro.bounces=NO;
-    scro.alwaysBounceHorizontal=NO;
-    scro.alwaysBounceVertical=NO;
-    scro.showsVerticalScrollIndicator=YES;
-    scro.backgroundColor=[UIColor blueColor];
-    scro.delegate=self;
-    //决定画布最终显示结果
-    scro.contentOffset=CGPointMake(0, 0);
+    UIImage* img=[UIImage imageNamed:@"1.jpg"];
+    UIImageView* imv=[[UIImageView alloc]init];
+    imv.image=img;
+    imv.frame=CGRectMake(50, 100, 300, 500);
+    imv.tag=101;
+    [self.view addSubview:imv];
     
-    
-    for(int i=0;i<3;i++){
-    NSString* strname=[NSString stringWithFormat:@"%d.jpg",i+1];
-    UIImage* img=[UIImage imageNamed:strname];
-    UIImageView* iv=[[UIImageView alloc]initWithImage:img];
-    iv.frame=CGRectMake(0, 682*i, 420, 682);
-    [scro addSubview:iv];
-    
-    }
-    [self.view addSubview:scro];
-    
-}
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    NSLog(@"y=%f",scrollView.contentOffset.y);
-}
-
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    NSLog(@"结束拖动啦");
-}
-
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    NSLog(@"视图即将被拖动");
-}
-
--(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    NSLog(@"视图即将结束拖动");
-}
-
-
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    NSLog(@"视图已经停止jiansu");
-}
-
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
-    NSLog(@"视图即将被减速");
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [scro scrollRectToVisible:CGRectMake(0, 0, 420, 682) animated:YES ];
+    NSLog(@"手指触碰屏幕");
+    UITouch* touch=[touches anyObject];
+    if(touch.tapCount==1){
+        NSLog(@"单次点击");
+    }
+    else if(touch.tapCount==2){
+        NSLog(@"双次点击");
+    }
+    _ptlast=[touch locationInView:self.view];
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    UITouch* touch=[touches anyObject];
+    CGPoint pt=[touch locationInView:self.view ];
+    NSLog(@"x=%f,y=%f",pt.x,pt.y);
+    UIImageView* imv=[self.view viewWithTag:101];
+    float xoffest=pt.x-_ptlast.x;
+    float yoffest=pt.y-_ptlast.y;
+    _ptlast=pt;
+    imv.frame=CGRectMake(imv.frame.origin.x+xoffest, imv.frame.origin.y+yoffest, imv.frame.size.width, imv.frame.size.height);
+  
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    NSLog(@"手指离开键盘");
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
 }
 
 
-    
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

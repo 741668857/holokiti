@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController<UIScrollViewDelegate>{
-    UIScrollView* scro;
+@interface ViewController : UIViewController{
+    UITouch* touch;
+    CGPoint _ptlast;
+    
 }
 
 
