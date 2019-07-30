@@ -9,13 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController<UITextFieldDelegate>{
-    UILabel* _lbusername;
-    UILabel* _lbpassword;
-    UITextField* _tfusername;
-    UITextField* _tfpassword;
-    UIButton* _btlogin;
-    UIButton* _btregister;
- 
+
 }
 
 
