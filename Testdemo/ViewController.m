@@ -20,45 +20,37 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     UIImage* img=[UIImage imageNamed:@"1.jpg"];
-    UIImageView* imv=[[UIImageView alloc]init];
-    imv.image=img;
-    imv.frame=CGRectMake(50, 100, 300, 500);
-    imv.tag=101;
-    [self.view addSubview:imv];
+    imgview=[[UIImageView alloc ]init];
+    imgview.frame=CGRectMake(10, 100, 340, 460);
+    imgview.image=img;
+    [self.view addSubview:imgview];
+    imgview.userInteractionEnabled=YES;
+    UITapGestureRecognizer* tap1=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapOneAct)];
+    tap1.numberOfTapsRequired=1;
+    tap1.numberOfTouchesRequired=1;
+    [imgview addGestureRecognizer:tap1];
     
+    UITapGestureRecognizer* tap2=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapTwoAct)];
+    tap2.numberOfTapsRequired=2;
+    tap2.numberOfTouchesRequired=1;
+    [imgview addGestureRecognizer:tap2];
+    [tap1 requireGestureRecognizerToFail:tap2];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    NSLog(@"手指触碰屏幕");
-    UITouch* touch=[touches anyObject];
-    if(touch.tapCount==1){
-        NSLog(@"单次点击");
-    }
-    else if(touch.tapCount==2){
-        NSLog(@"双次点击");
-    }
-    _ptlast=[touch locationInView:self.view];
+-(void)tapOneAct{
+    [UIView beginAnimations:nil context:nil];
+    imgview.frame=CGRectMake(0, 0, 400, 500);
+    [UIView commitAnimations];
+    NSLog(@"单次点击");
 }
 
-- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    UITouch* touch=[touches anyObject];
-    CGPoint pt=[touch locationInView:self.view ];
-    NSLog(@"x=%f,y=%f",pt.x,pt.y);
-    UIImageView* imv=[self.view viewWithTag:101];
-    float xoffest=pt.x-_ptlast.x;
-    float yoffest=pt.y-_ptlast.y;
-    _ptlast=pt;
-    imv.frame=CGRectMake(imv.frame.origin.x+xoffest, imv.frame.origin.y+yoffest, imv.frame.size.width, imv.frame.size.height);
-  
+-(void )tapTwoAct{
+    [UIView beginAnimations:nil context:nil];
+    imgview.frame=CGRectMake(10, 100, 340, 460);
+    [UIView commitAnimations];
 }
 
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    NSLog(@"手指离开键盘");
-}
 
-- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
-}
 
 
 

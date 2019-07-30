@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController{
-    UITouch* touch;
-    CGPoint _ptlast;
-    
+
+    UIImageView* imgview;
 }
 
 
