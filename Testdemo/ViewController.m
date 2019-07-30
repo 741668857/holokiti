@@ -25,35 +25,31 @@
     imgview.image=img;
     [self.view addSubview:imgview];
     imgview.userInteractionEnabled=YES;
-    UITapGestureRecognizer* tap1=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapOneAct)];
-    tap1.numberOfTapsRequired=1;
-    tap1.numberOfTouchesRequired=1;
-    [imgview addGestureRecognizer:tap1];
+    _pinGes=[[UIPinchGestureRecognizer alloc ]initWithTarget:self action:@selector(PinGes:)];
+    [imgview addGestureRecognizer:_pinGes];
+    _roGes=[[UIRotationGestureRecognizer alloc]initWithTarget:self action:@selector(Roges:)];
+    [imgview addGestureRecognizer:_roGes];
+    _roGes.delegate=self;
+    _pinGes.delegate=self;
     
-    UITapGestureRecognizer* tap2=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapTwoAct)];
-    tap2.numberOfTapsRequired=2;
-    tap2.numberOfTouchesRequired=1;
-    [imgview addGestureRecognizer:tap2];
-    [tap1 requireGestureRecognizerToFail:tap2];
+ 
 }
 
--(void)tapOneAct{
-    [UIView beginAnimations:nil context:nil];
-    imgview.frame=CGRectMake(0, 0, 400, 500);
-    [UIView commitAnimations];
-    NSLog(@"单次点击");
+-(void)PinGes:(UIPinchGestureRecognizer*) pinch{
+    UIImageView* imgv=(UIImageView*)pinch.view;
+    imgv.transform=CGAffineTransformScale(imgv.transform, pinch.scale, pinch.scale);
+    pinch.scale=1;
 }
 
--(void )tapTwoAct{
-    [UIView beginAnimations:nil context:nil];
-    imgview.frame=CGRectMake(10, 100, 340, 460);
-    [UIView commitAnimations];
+-(void)Roges:(UIRotationGestureRecognizer*)ros{
+    UIImageView* imgv=(UIImageView*)ros.view;
+    imgv.transform=CGAffineTransformRotate(imgv.transform, ros.rotation);
+    ros.rotation=0;
 }
 
-
-
-
-
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    return YES;
+}
 
 
 

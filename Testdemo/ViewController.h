@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController{
+@interface ViewController : UIViewController<UIGestureRecognizerDelegate>{
 
     UIImageView* imgview;
+    UIPinchGestureRecognizer* _pinGes;
+    UIRotationGestureRecognizer* _roGes;
 }
 
 
