@@ -10,6 +10,7 @@
 		641965A922EFC93400D1760C /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 641965A822EFC93400D1760C /* 3.jpg */; };
 		64B535B722F1304C00EBF97D /* VCRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B535B522F1304C00EBF97D /* VCRoot.m */; };
 		64B535B822F1304C00EBF97D /* VCRoot.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64B535B622F1304C00EBF97D /* VCRoot.xib */; };
+		64B535C122F17EE300EBF97D /* SuperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B535C022F17EE300EBF97D /* SuperView.m */; };
 		64E5A9C622EE6F14007384D9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E5A9C522EE6F14007384D9 /* AppDelegate.m */; };
 		64E5A9C922EE6F14007384D9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E5A9C822EE6F14007384D9 /* ViewController.m */; };
 		64E5A9CC22EE6F14007384D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64E5A9CA22EE6F14007384D9 /* Main.storyboard */; };
@@ -25,6 +26,8 @@
 		64B535B422F1304C00EBF97D /* VCRoot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCRoot.h; sourceTree = "<group>"; };
 		64B535B522F1304C00EBF97D /* VCRoot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCRoot.m; sourceTree = "<group>"; };
 		64B535B622F1304C00EBF97D /* VCRoot.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VCRoot.xib; sourceTree = "<group>"; };
+		64B535BF22F17EE300EBF97D /* SuperView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuperView.h; sourceTree = "<group>"; };
+		64B535C022F17EE300EBF97D /* SuperView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuperView.m; sourceTree = "<group>"; };
 		64E5A9C122EE6F14007384D9 /* Testdemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Testdemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64E5A9C422EE6F14007384D9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		64E5A9C522EE6F14007384D9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -80,10 +83,12 @@
 				64E5A9CD22EE6F15007384D9 /* Assets.xcassets */,
 				64E5A9CF22EE6F15007384D9 /* LaunchScreen.storyboard */,
 				64E5A9D222EE6F15007384D9 /* Info.plist */,
-				64E5A9D322EE6F15007384D9 /* main.m */,
 				64B535B422F1304C00EBF97D /* VCRoot.h */,
+				64E5A9D322EE6F15007384D9 /* main.m */,
 				64B535B522F1304C00EBF97D /* VCRoot.m */,
 				64B535B622F1304C00EBF97D /* VCRoot.xib */,
+				64B535BF22F17EE300EBF97D /* SuperView.h */,
+				64B535C022F17EE300EBF97D /* SuperView.m */,
 			);
 			path = Testdemo;
 			sourceTree = "<group>";
@@ -164,6 +169,7 @@
 			files = (
 				64B535B722F1304C00EBF97D /* VCRoot.m in Sources */,
 				64E5A9C922EE6F14007384D9 /* ViewController.m in Sources */,
+				64B535C122F17EE300EBF97D /* SuperView.m in Sources */,
 				64E5A9D422EE6F15007384D9 /* main.m in Sources */,
 				64E5A9C622EE6F14007384D9 /* AppDelegate.m in Sources */,
 			);

@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "SuperView.h"
 
 
 @interface ViewController ()
@@ -19,51 +20,47 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIImage* img=[UIImage imageNamed:@"1.jpg"];
-    imgview=[[UIImageView alloc ]init];
-    imgview.frame=CGRectMake(10, 100, 340, 460);
-    imgview.image=img;
-    [self.view addSubview:imgview];
-    imgview.userInteractionEnabled=YES;
+    SuperView* view=[[SuperView alloc]init];
+    view.frame=CGRectMake(0, 0, 300, 300);
+    view.backgroundColor=[UIColor blueColor];
+    [self.view addSubview:view];
+    [view createView];
+    view.tag=101;
     
-    UIPanGestureRecognizer* pan=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(Panges:)];
-    [imgview addGestureRecognizer:pan];
-    [imgview removeGestureRecognizer:pan];
+    UIButton* btn1=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn1.frame=CGRectMake(300, 300, 80, 50);
+    [btn1 setTitle:@"放大" forState:UIControlStateNormal];
+    [btn1 addTarget:self action:@selector(pressOnbig) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
     
-    UISwipeGestureRecognizer* swip=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swip:)];
-    swip.direction=UISwipeGestureRecognizerDirectionLeft|UISwipeGestureRecognizerDirectionRight;
-    [imgview addGestureRecognizer:swip];
+    UIButton* btn2=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn2.frame=CGRectMake(300, 400, 80, 50);
+    [btn2 setTitle:@"缩小" forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(pressOnsmall) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
     
-    UILongPressGestureRecognizer* longPress=[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longpress:)];
-    longPress.minimumPressDuration=0.5;
-    [imgview addGestureRecognizer:longPress];
+    
+    
+    
+}
+-(void)pressOnbig{
+    UIView* view=(UIView*)[self.view viewWithTag:101 ];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:1];
+    view.frame=CGRectMake(0, 0, 400, 400);
+    [UIView commitAnimations];
+    
 }
 
--(void)Panges:(UIPanGestureRecognizer*) pan{
-    CGPoint pt=[pan translationInView:self.view];
-    CGPoint pv=[pan velocityInView:self.view];
-    NSLog(@"pt.x=%.2f,pt.y=%.2f",pt.x,pt.y);
-    NSLog(@"pv.x=%.2f,pv.y=%.2f",pv.x,pv.y);
+-(void)pressOnsmall{
+    UIView* view=(UIView*)[self.view viewWithTag:101];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:1];
+    view.frame=CGRectMake(0, 0, 300, 300);
+    [UIView commitAnimations];
 }
 
--(void)swip:(UISwipeGestureRecognizer*) swipe{
-    if(swipe.direction & UISwipeGestureRecognizerDirectionLeft){
-        NSLog(@"向左移动");
-    }
-    else if (swipe.direction & UISwipeGestureRecognizerDirectionRight){
-        NSLog(@"向右移动");
-    }
-}
 
--(void)longpress:(UILongPressGestureRecognizer*) longpress{
-    if(longpress.state==UIGestureRecognizerStateBegan){
-        NSLog(@"开始状态");
-    }
-    else if (longpress.state==UIGestureRecognizerStateEnded){
-        NSLog(@"结束状态");
-    }
-    NSLog(@"长安了");
-}
 
 
 - (void)didReceiveMemoryWarning {
