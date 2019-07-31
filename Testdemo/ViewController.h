@@ -11,8 +11,8 @@
 @interface ViewController : UIViewController<UIGestureRecognizerDelegate>{
 
     UIImageView* imgview;
-    UIPinchGestureRecognizer* _pinGes;
-    UIRotationGestureRecognizer* _roGes;
+    
+
 }
 
 

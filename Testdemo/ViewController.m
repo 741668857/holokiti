@@ -25,33 +25,45 @@
     imgview.image=img;
     [self.view addSubview:imgview];
     imgview.userInteractionEnabled=YES;
-    _pinGes=[[UIPinchGestureRecognizer alloc ]initWithTarget:self action:@selector(PinGes:)];
-    [imgview addGestureRecognizer:_pinGes];
-    _roGes=[[UIRotationGestureRecognizer alloc]initWithTarget:self action:@selector(Roges:)];
-    [imgview addGestureRecognizer:_roGes];
-    _roGes.delegate=self;
-    _pinGes.delegate=self;
     
- 
+    UIPanGestureRecognizer* pan=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(Panges:)];
+    [imgview addGestureRecognizer:pan];
+    [imgview removeGestureRecognizer:pan];
+    
+    UISwipeGestureRecognizer* swip=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swip:)];
+    swip.direction=UISwipeGestureRecognizerDirectionLeft|UISwipeGestureRecognizerDirectionRight;
+    [imgview addGestureRecognizer:swip];
+    
+    UILongPressGestureRecognizer* longPress=[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longpress:)];
+    longPress.minimumPressDuration=0.5;
+    [imgview addGestureRecognizer:longPress];
 }
 
--(void)PinGes:(UIPinchGestureRecognizer*) pinch{
-    UIImageView* imgv=(UIImageView*)pinch.view;
-    imgv.transform=CGAffineTransformScale(imgv.transform, pinch.scale, pinch.scale);
-    pinch.scale=1;
+-(void)Panges:(UIPanGestureRecognizer*) pan{
+    CGPoint pt=[pan translationInView:self.view];
+    CGPoint pv=[pan velocityInView:self.view];
+    NSLog(@"pt.x=%.2f,pt.y=%.2f",pt.x,pt.y);
+    NSLog(@"pv.x=%.2f,pv.y=%.2f",pv.x,pv.y);
 }
 
--(void)Roges:(UIRotationGestureRecognizer*)ros{
-    UIImageView* imgv=(UIImageView*)ros.view;
-    imgv.transform=CGAffineTransformRotate(imgv.transform, ros.rotation);
-    ros.rotation=0;
+-(void)swip:(UISwipeGestureRecognizer*) swipe{
+    if(swipe.direction & UISwipeGestureRecognizerDirectionLeft){
+        NSLog(@"向左移动");
+    }
+    else if (swipe.direction & UISwipeGestureRecognizerDirectionRight){
+        NSLog(@"向右移动");
+    }
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
-    return YES;
+-(void)longpress:(UILongPressGestureRecognizer*) longpress{
+    if(longpress.state==UIGestureRecognizerStateBegan){
+        NSLog(@"开始状态");
+    }
+    else if (longpress.state==UIGestureRecognizerStateEnded){
+        NSLog(@"结束状态");
+    }
+    NSLog(@"长安了");
 }
-
-
 
 
 - (void)didReceiveMemoryWarning {
