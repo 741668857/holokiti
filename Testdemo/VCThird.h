@@ -1,5 +1,5 @@
 //
-//  VCRoot.h
+//  VCThird.h
 //  Testdemo
 //
 //  Created by Civet on 2019/8/1.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VCRoot : UIViewController
+@interface VCThird : UIViewController
 
 @end

@@ -2,11 +2,12 @@
 //  VCRoot.m
 //  Testdemo
 //
-//  Created by Civet on 2019/7/31.
+//  Created by Civet on 2019/8/1.
 //  Copyright © 2019 Civet. All rights reserved.
 //
 
 #import "VCRoot.h"
+#import "VCSecond.h"
 
 @interface VCRoot ()
 
@@ -16,8 +17,40 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _PasswordLabel.secureTextEntry=YES;
-    // Do any additional setup after loading the view from its nib.
+    
+    self.view.backgroundColor=[UIColor whiteColor];
+    self.navigationItem.title=@"你好骚啊";
+    
+    UIBarButtonItem* leftbtn=[[UIBarButtonItem alloc]initWithTitle:@"溜了溜了" style:UIBarButtonItemStyleDone target:self action:@selector(leftButton)];
+    self.navigationItem.leftBarButtonItem=leftbtn;
+    
+    UIBarButtonItem* rightbtn=[[UIBarButtonItem alloc]initWithTitle:@"来呀快活呀" style:UIBarStyleDefault target:self action:@selector(rightButton)];
+    
+    UILabel* label=[[UILabel alloc]init];
+    label.text=@"我不想跑";
+    label.backgroundColor=[UIColor orangeColor];
+    label.textAlignment=NSTextAlignmentCenter;
+    
+    UIBarButtonItem* labelbtn=[[UIBarButtonItem alloc]initWithCustomView:label];
+    NSArray* arybtn=[NSArray arrayWithObjects:rightbtn,labelbtn, nil];
+    
+    self.navigationItem.rightBarButtonItems=arybtn;
+    
+    
+    
+    
+    // Do any additional setup after loading the view.
+}
+
+-(void)leftButton{
+    NSLog(@"别让我逮到你了");
+    UIAlertView* alv=[[UIAlertView alloc]initWithTitle:@"你好大的胆子" message:@"想溜？对不起，我是警察" delegate:nil cancelButtonTitle:@"求放过爸爸QAQ" otherButtonTitles:@"我选择死亡。。。",@"awsl.w.", nil];
+    [alv show];
+}
+-(void)rightButton{
+    VCSecond* vc=[[VCSecond alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,21 +68,4 @@
 }
 */
 
-- (IBAction)PressLogin:(UIButton *)sender {
-    NSString* user=@"abcd";
-    NSString* password=@"123";
-    if([_UserLabel.text isEqual:user]&&[_PasswordLabel.text isEqual:password]){
-        UIAlertView* alv=[[UIAlertView alloc]initWithTitle:@"提示" message:@"恭喜崽种！" delegate:nil cancelButtonTitle:@"好的爸爸-。-" otherButtonTitles:@"我好聪明哦owo", nil];
-        [alv show];
-    }
-    else{
-        UIAlertView* alv1=[[UIAlertView alloc]initWithTitle:@"提示" message:@"用户名或者密码错了崽种" delegate:nil cancelButtonTitle:@"我知道错了爸爸-。-" otherButtonTitles:@"这都记不住真笨哦owo", nil];
-        [alv1 show];
-    }
-    
-}
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [_UserLabel resignFirstResponder];
-    [_PasswordLabel resignFirstResponder];
-}
 @end

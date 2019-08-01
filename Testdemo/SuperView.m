@@ -33,20 +33,15 @@
     [self addSubview:_view03];
     [self addSubview:_view04];
     
+    _view02.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin;
+    _view03.autoresizingMask=UIViewAutoresizingFlexibleTopMargin;
+    _view04.autoresizingMask=UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin;
+    
     
     
 }
 
-- (void)layoutSubviews{
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:1];
-    _view01.frame=CGRectMake(0, 0, 40, 40);
-    _view02.frame=CGRectMake(self.bounds.size.width-40, 0, 40, 40);
-    _view03.frame=CGRectMake(0, self.bounds.size.height-40, 40, 40);
-    _view04.frame=CGRectMake(self.bounds.size.width-40, self.bounds.size.height-40, 40, 40);
-    [UIView commitAnimations];
-    
-}
+
 
 
 /*
