@@ -1,29 +1,23 @@
 //
-//  VCSecond.m
+//  VCSix.m
 //  Testdemo
 //
 //  Created by Civet on 2019/8/1.
 //  Copyright © 2019 Civet. All rights reserved.
 //
 
-#import "VCSecond.h"
-#import "VCThird.h"
+#import "VCSix.h"
 
-@interface VCSecond ()
+@interface VCSix ()
 
 @end
 
-@implementation VCSecond
+@implementation VCSix
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UITabBarItem* tabbaritem=[[UITabBarItem alloc]initWithTitle:@"厉害呢" image:nil tag:nil];
-    tabbaritem.badgeValue=@"50";
-    self.tabBarItem=tabbaritem;
     // Do any additional setup after loading the view.
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

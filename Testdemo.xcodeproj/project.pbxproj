@@ -11,6 +11,9 @@
 		648410BE22F2765A008AEFC5 /* VCRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 648410BD22F2765A008AEFC5 /* VCRoot.m */; };
 		648410C122F28941008AEFC5 /* VCSecond.m in Sources */ = {isa = PBXBuildFile; fileRef = 648410C022F28941008AEFC5 /* VCSecond.m */; };
 		648410C422F28964008AEFC5 /* VCThird.m in Sources */ = {isa = PBXBuildFile; fileRef = 648410C322F28964008AEFC5 /* VCThird.m */; };
+		648410C722F2D884008AEFC5 /* VCFour.m in Sources */ = {isa = PBXBuildFile; fileRef = 648410C622F2D884008AEFC5 /* VCFour.m */; };
+		648410CA22F2D891008AEFC5 /* VCFive.m in Sources */ = {isa = PBXBuildFile; fileRef = 648410C922F2D891008AEFC5 /* VCFive.m */; };
+		648410CD22F2D89E008AEFC5 /* VCSix.m in Sources */ = {isa = PBXBuildFile; fileRef = 648410CC22F2D89E008AEFC5 /* VCSix.m */; };
 		64E5A9C622EE6F14007384D9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E5A9C522EE6F14007384D9 /* AppDelegate.m */; };
 		64E5A9C922EE6F14007384D9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E5A9C822EE6F14007384D9 /* ViewController.m */; };
 		64E5A9CC22EE6F14007384D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64E5A9CA22EE6F14007384D9 /* Main.storyboard */; };
@@ -29,6 +32,12 @@
 		648410C022F28941008AEFC5 /* VCSecond.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCSecond.m; sourceTree = "<group>"; };
 		648410C222F28964008AEFC5 /* VCThird.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCThird.h; sourceTree = "<group>"; };
 		648410C322F28964008AEFC5 /* VCThird.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCThird.m; sourceTree = "<group>"; };
+		648410C522F2D884008AEFC5 /* VCFour.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCFour.h; sourceTree = "<group>"; };
+		648410C622F2D884008AEFC5 /* VCFour.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCFour.m; sourceTree = "<group>"; };
+		648410C822F2D891008AEFC5 /* VCFive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCFive.h; sourceTree = "<group>"; };
+		648410C922F2D891008AEFC5 /* VCFive.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCFive.m; sourceTree = "<group>"; };
+		648410CB22F2D89E008AEFC5 /* VCSix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCSix.h; sourceTree = "<group>"; };
+		648410CC22F2D89E008AEFC5 /* VCSix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCSix.m; sourceTree = "<group>"; };
 		64E5A9C122EE6F14007384D9 /* Testdemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Testdemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64E5A9C422EE6F14007384D9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		64E5A9C522EE6F14007384D9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -78,6 +87,12 @@
 			children = (
 				64E5A9C422EE6F14007384D9 /* AppDelegate.h */,
 				64E5A9C522EE6F14007384D9 /* AppDelegate.m */,
+				648410C522F2D884008AEFC5 /* VCFour.h */,
+				648410C622F2D884008AEFC5 /* VCFour.m */,
+				648410C822F2D891008AEFC5 /* VCFive.h */,
+				648410C922F2D891008AEFC5 /* VCFive.m */,
+				648410CB22F2D89E008AEFC5 /* VCSix.h */,
+				648410CC22F2D89E008AEFC5 /* VCSix.m */,
 				648410BC22F2765A008AEFC5 /* VCRoot.h */,
 				648410BF22F28941008AEFC5 /* VCSecond.h */,
 				648410C022F28941008AEFC5 /* VCSecond.m */,
@@ -168,11 +183,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				648410CD22F2D89E008AEFC5 /* VCSix.m in Sources */,
 				648410C422F28964008AEFC5 /* VCThird.m in Sources */,
 				648410C122F28941008AEFC5 /* VCSecond.m in Sources */,
+				648410C722F2D884008AEFC5 /* VCFour.m in Sources */,
 				648410BE22F2765A008AEFC5 /* VCRoot.m in Sources */,
 				64E5A9C922EE6F14007384D9 /* ViewController.m in Sources */,
 				64E5A9D422EE6F15007384D9 /* main.m in Sources */,
+				648410CA22F2D891008AEFC5 /* VCFive.m in Sources */,
 				64E5A9C622EE6F14007384D9 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

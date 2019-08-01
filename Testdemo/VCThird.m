@@ -16,7 +16,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title=@"很好。你非常骚";
     self.view.backgroundColor=[UIColor redColor];
     UIBarButtonItem* btn=[[UIBarButtonItem alloc]initWithTitle:@"准备进入地狱吧～" style:UIBarStyleDefault target:self action:@selector(rightButton)];
     self.navigationItem.rightBarButtonItem=btn;
