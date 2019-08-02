@@ -20,56 +20,59 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title=@"haha";
     self.view.backgroundColor=[UIColor whiteColor];
-    UIPickerView* pickerview=[[UIPickerView alloc]init];
-    pickerview.frame=CGRectMake(10, 100, 400,200);
-    pickerview.delegate=self;
-    pickerview.dataSource=self;
-    [self.view addSubview:pickerview];
+    UIButton* btn1=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn1.frame=CGRectMake(50, 50, 100, 100);
+    [btn1 setTitle:@"写入文件" forState:UIControlStateNormal];
+    [btn1 addTarget:self action:@selector(pressWrite) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
+    
+    UIButton* btn2=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn2.frame=CGRectMake(50, 100, 100, 100);
+    [btn2 setTitle:@"读取文件" forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(pressRead) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
+    
+
 
     // Do any additional setup after loading the view.
 }
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
-    return 3;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    if(component==1){
-        return 12;
-    }
-    if(component==2){
-        return 12;
-    }
-    return 30;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    if(component==0){
-    NSString* str1=@"";
-    str1=[NSString stringWithFormat:@"%ld年",1997+row];
-    return str1 ;
-    }
+-(void)pressWrite{
+    NSUserDefaults *ud=[NSUserDefaults standardUserDefaults];
+    [ud setObject:@"123" forKey:@"name"];
+    NSNumber *num=[NSNumber numberWithInt:156];
+    [ud setObject:num forKey:@"num"];
+    [ud setInteger:123 forKey:@"integer"];
+    [ud setBool:NO forKey:@"bool"];
     
-    if(component==1){
-        NSString* str2=@"";
-        str2=[NSString stringWithFormat:@"%ld月",1+row];
-        return str2 ;
-        }
-
-    if(component==2){
-            NSString* str3=@"";
-            str3=[NSString stringWithFormat:@"%ld日",1+row];
-            return str3 ;
-    }
-   
-    return 0;
+    NSArray *array=[NSArray arrayWithObjects:@"11",@"22",@"33",nil ];
+    [ud setObject:array forKey:@"array"];
+    
+    
 }
 
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
-    return 50;
+-(void)pressRead{
+    NSUserDefaults *ud=[NSUserDefaults standardUserDefaults];
+    id object=[ud objectForKey:@"num"];
+    NSString *name=(NSString*)object;
+    NSLog(@"num=%@",name);
+    
+    object=[ud objectForKey:@"name"];
+    NSString *name1=(NSString*)object;
+    NSLog(@"name=%@",name1);
+    
+    NSInteger integer=[ud integerForKey:@"integer"];
+    NSLog(@"int=%d",integer);
+    
+    BOOL bool1=[ud integerForKey:@"bool"];
+    NSLog(@"bool=%d",bool1);
+    
+    NSArray  *array=[ud objectForKey:@"array"];
+    NSLog(@"array=%@",array);
+    
 }
+
 
 
 
