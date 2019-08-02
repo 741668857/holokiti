@@ -1,21 +1,30 @@
 //
-//  VCSix.m
+//  VCImageView.m
 //  Testdemo
 //
-//  Created by Civet on 2019/8/1.
+//  Created by Civet on 2019/8/2.
 //  Copyright © 2019 Civet. All rights reserved.
 //
 
-#import "VCSix.h"
+#import "VCImageView.h"
 
-@interface VCSix ()
+
+@interface VCImageView ()
 
 @end
 
-@implementation VCSix
+@implementation VCImageView
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title=@"图片展示";
+    _imageview=[[UIImageView alloc]init];
+    _imageview.frame=CGRectMake(0, 0, 410, 700);
+    _imageview.image=_image;
+    [self.view addSubview:_imageview];
+    
+    
+    
     // Do any additional setup after loading the view.
 }
 

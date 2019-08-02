@@ -8,11 +8,7 @@
 
 #import "AppDelegate.h"
 #import "VCRoot.h"
-#import "VCSecond.h"
-#import "VCThird.h"
-#import "VCFour.h"
-#import "VCFive.h"
-#import "VCSix.h"
+
 
 
 @interface AppDelegate ()
@@ -24,67 +20,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    
     self.window=[[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-  
-    VCRoot* root01=[[VCRoot alloc]init];
-    VCSecond* root02=[[VCSecond alloc]init];
-    VCThird* root03=[[VCThird alloc]init];
-    VCFour* root04=[[VCFour alloc]init];
-    VCFive* root05=[[VCFive alloc ]init];
-    VCSix* root06=[[VCSix alloc]init];
-    
-    root01.title=@"弟弟";
-    root02.title=@"崽种";
-    root03.title=@"03";
-    root04.title=@"04";
-    root05.title=@"05";
-    root06.title=@"06";
-    
-    root04.view.backgroundColor=[UIColor blackColor];
-    root05.view.backgroundColor=[UIColor grayColor];
-    root06.view.backgroundColor=[UIColor whiteColor];
-    
-    
-    
-    root02.view.backgroundColor=[UIColor orangeColor];
-    
-    UITabBarController* tbcon=[[UITabBarController alloc]init];
-    NSArray* ary=[NSArray arrayWithObjects:root01,root02,root03, root04,root05,root06,nil];
-    tbcon.viewControllers=ary;
-    tbcon.tabBar.translucent=NO;
-    tbcon.selectedIndex=2;
-    tbcon.tabBar.TintColor=[UIColor blueColor];
-    
-    self.window.rootViewController=tbcon;
-
-    tbcon.delegate=self;
+    VCRoot* root=[[VCRoot alloc]init];
+    UINavigationController* nav=[[UINavigationController alloc]initWithRootViewController:root];
+    self.window.rootViewController=nav;
     [self.window makeKeyAndVisible];
+    
+    
+    
     // Override point for customization after application launch.
     return YES;
 }
-
-- (void)tabBarController:(UITabBarController *)tabBarController willBeginCustomizingViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers{
-    NSLog(@"开始编辑");
-}
-
-- (void)tabBarController:(UITabBarController *)tabBarController willEndCustomizingViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers changed:(BOOL)changed{
-    NSLog(@"即将结束编辑");
-}
-
-- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers changed:(BOOL)changed{
-    if(changed=YES){
-        NSLog(@"改变它lei了！！");
-    }
-    NSLog(@"viewcontroller:%@",viewControllers);
-    NSLog(@"已经结束编辑");
-}
-
-- (void)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
-    NSLog(@"选中控制器对象");
-}
-
-
-
 
 
 
