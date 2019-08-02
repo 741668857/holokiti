@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VCRoot : UIViewController
+@interface VCRoot : UIViewController<UIPickerViewDelegate,UIPickerViewDataSource>
+
 
 @end

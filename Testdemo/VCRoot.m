@@ -7,7 +7,7 @@
 //
 
 #import "VCRoot.h"
-#import "VCImageView.h"
+
 
 
 
@@ -20,45 +20,63 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title=@"照片墙";
+    self.title=@"haha";
     self.view.backgroundColor=[UIColor whiteColor];
-    
-    self.navigationController.navigationBar.translucent=NO;
-    
-    UIScrollView* sv=[[UIScrollView alloc]init];
-    sv.frame=CGRectMake(50, 10,300,480);
-    sv.contentSize=CGSizeMake(300,480*1.5);
-    sv.userInteractionEnabled=YES;
-    sv.showsVerticalScrollIndicator=NO;
-    
-    for(int i=0;i<7;i++){
-    NSString* strname=[NSString stringWithFormat:@"%d.jpg",i+1];
-        UIImage* img=[UIImage imageNamed:strname];
-        UIImageView* imgview=[[UIImageView alloc]initWithImage:img];
-        imgview.frame=CGRectMake((i%3)*100+10, (i/3)*140+6, 90, 130);
-        [sv addSubview:imgview];
-        imgview.userInteractionEnabled=YES;
-        imgview.tag=102+i;
-        
-        UITapGestureRecognizer* tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pressTap:)];
-        tap.numberOfTapsRequired=1;
-        tap.numberOfTouchesRequired=1;
-        [imgview addGestureRecognizer:tap];
-        
-    }
-    
-    [self.view addSubview:sv];
-    
+    UIPickerView* pickerview=[[UIPickerView alloc]init];
+    pickerview.frame=CGRectMake(10, 100, 400,200);
+    pickerview.delegate=self;
+    pickerview.dataSource=self;
+    [self.view addSubview:pickerview];
+
     // Do any additional setup after loading the view.
 }
 
--(void)pressTap:(UITapGestureRecognizer*) tap{
-    UIImageView* imagev=(UIImageView*)tap.view;
-    VCImageView* imageshow=[[VCImageView alloc]init];
-    imageshow.image=imagev.image;
-    [self.navigationController pushViewController:imageshow animated:YES];
-    
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    return 3;
 }
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    if(component==1){
+        return 12;
+    }
+    if(component==2){
+        return 12;
+    }
+    return 30;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    if(component==0){
+    NSString* str1=@"";
+    str1=[NSString stringWithFormat:@"%ld年",1997+row];
+    return str1 ;
+    }
+    
+    if(component==1){
+        NSString* str2=@"";
+        str2=[NSString stringWithFormat:@"%ld月",1+row];
+        return str2 ;
+        }
+
+    if(component==2){
+            NSString* str3=@"";
+            str3=[NSString stringWithFormat:@"%ld日",1+row];
+            return str3 ;
+    }
+   
+    return 0;
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
+    return 50;
+}
+
+
+
+
+
+
+
 
 
 - (void)didReceiveMemoryWarning {
