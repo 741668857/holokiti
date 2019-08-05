@@ -20,65 +20,92 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor=[UIColor whiteColor];
-    UIButton* btn1=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn1.frame=CGRectMake(50, 50, 100, 100);
-    [btn1 setTitle:@"写入文件" forState:UIControlStateNormal];
-    [btn1 addTarget:self action:@selector(pressWrite) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn1];
     
-    UIButton* btn2=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn2.frame=CGRectMake(50, 100, 100, 100);
-    [btn2 setTitle:@"读取文件" forState:UIControlStateNormal];
-    [btn2 addTarget:self action:@selector(pressRead) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn2];
-    
+    _tableView=[[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    _tableView.delegate=self;
+    _tableView.dataSource=self;
+    //自动调整子视图大小
+    _tableView.autoresizingMask=UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    _arrayData=[[NSMutableArray alloc]init];
+    for(int i='A';i<='Z';i++){
+        NSMutableArray* arraysmall=[[NSMutableArray alloc]init];
+        for(int j=1;j<=5;j++){
+        NSString *str=[NSString stringWithFormat:@" %c%d",i,j];
+        [arraysmall addObject:str];
+    }
+        [_arrayData addObject:arraysmall];
+    }
+   
+    [self.view addSubview:_tableView];
+    [self createBtn];
 
-
-    // Do any additional setup after loading the view.
 }
 
--(void)pressWrite{
-    NSUserDefaults *ud=[NSUserDefaults standardUserDefaults];
-    [ud setObject:@"123" forKey:@"name"];
-    NSNumber *num=[NSNumber numberWithInt:156];
-    [ud setObject:num forKey:@"num"];
-    [ud setInteger:123 forKey:@"integer"];
-    [ud setBool:NO forKey:@"bool"];
+-(void)createBtn{
     
-    NSArray *array=[NSArray arrayWithObjects:@"11",@"22",@"33",nil ];
-    [ud setObject:array forKey:@"array"];
+    _isEdit=NO;
+    _btnEdit=[[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(pressEdit)];
+    _btnDelete=[[UIBarButtonItem alloc]initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self action:@selector(pressDelete)];
+    _btnFinish=[[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(pressFinish)];
     
-    
-}
-
--(void)pressRead{
-    NSUserDefaults *ud=[NSUserDefaults standardUserDefaults];
-    id object=[ud objectForKey:@"num"];
-    NSString *name=(NSString*)object;
-    NSLog(@"num=%@",name);
-    
-    object=[ud objectForKey:@"name"];
-    NSString *name1=(NSString*)object;
-    NSLog(@"name=%@",name1);
-    
-    NSInteger integer=[ud integerForKey:@"integer"];
-    NSLog(@"int=%d",integer);
-    
-    BOOL bool1=[ud integerForKey:@"bool"];
-    NSLog(@"bool=%d",bool1);
-    
-    NSArray  *array=[ud objectForKey:@"array"];
-    NSLog(@"array=%@",array);
+    self.navigationItem.rightBarButtonItem=_btnEdit;
     
 }
 
+-(void)pressEdit{
+    _isEdit=YES;
+    self.navigationItem.rightBarButtonItem=_btnFinish;
+    [_tableView setEditing:YES];
+    self.navigationItem.leftBarButtonItem=_btnDelete;
+}
+-(void)pressDelete{
+    
+}
+
+-(void)pressFinish{
+    _isEdit=NO;
+    self.navigationItem.rightBarButtonItem=_btnEdit;
+    [_tableView setEditing:NO];
+    self.navigationItem.leftBarButtonItem=nil;
+    
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSInteger numrow=[[_arrayData objectAtIndex:section]count];
+    return numrow;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return _arrayData.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString* cellstr=@"cell";
+    UITableViewCell* cell=[_tableView dequeueReusableCellWithIdentifier:cellstr];
+    if(cell==nil){
+        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellstr];
+    }
+    cell.textLabel.text=_arrayData[indexPath.section][indexPath.row];
+    return cell;
+}
 
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleDelete;
+}
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    [_arrayData removeObjectAtIndex:indexPath.row];
+    [_tableView reloadData];
+}
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{\
+    NSLog(@"选中单元格");
+}
 
-
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"取消选择单元格，%ld,%ld",(long)indexPath.section,(long)indexPath.row);
+}
 
 
 
