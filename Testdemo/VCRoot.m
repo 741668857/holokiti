@@ -20,92 +20,54 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    _tableView=[[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-    _tableView.delegate=self;
-    _tableView.dataSource=self;
-    //自动调整子视图大小
-    _tableView.autoresizingMask=UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    _arrayData=[[NSMutableArray alloc]init];
-    for(int i='A';i<='Z';i++){
-        NSMutableArray* arraysmall=[[NSMutableArray alloc]init];
-        for(int j=1;j<=5;j++){
-        NSString *str=[NSString stringWithFormat:@" %c%d",i,j];
-        [arraysmall addObject:str];
+    self.view.backgroundColor=[UIColor whiteColor];
+    self.title=@"弟弟行为";
+    UIButton *btn=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn.frame=CGRectMake(100, 100, 150, 100);
+    btn.titleLabel.font=[UIFont systemFontOfSize:20];
+    [btn setTitle:@"来呀，快活呀" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
+}
+
+-(void)pressBtn:(UIButton*)btn{
+    NSString *strURL=@"http://www.baidu.com";
+    NSURL *url=[NSURL URLWithString:strURL];
+    NSURLRequest *request=[NSURLRequest requestWithURL:url];
+    _connect=[NSURLConnection connectionWithRequest:request delegate:self];
+    _data=[[NSMutableData alloc]init];
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+    NSLog(@"error=%@",error);
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
+    NSHTTPURLResponse *res=(NSHTTPURLResponse*)response;
+    if(res.statusCode==200){
+        NSLog(@"连接成功，服务器正常");
     }
-        [_arrayData addObject:arraysmall];
+    if(res.statusCode==404){
+        NSLog(@"服务器正常开启，没有找到链接地址页面或数据");
     }
-   
-    [self.view addSubview:_tableView];
-    [self createBtn];
-
-}
-
--(void)createBtn{
-    
-    _isEdit=NO;
-    _btnEdit=[[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(pressEdit)];
-    _btnDelete=[[UIBarButtonItem alloc]initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self action:@selector(pressDelete)];
-    _btnFinish=[[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(pressFinish)];
-    
-    self.navigationItem.rightBarButtonItem=_btnEdit;
-    
-}
-
--(void)pressEdit{
-    _isEdit=YES;
-    self.navigationItem.rightBarButtonItem=_btnFinish;
-    [_tableView setEditing:YES];
-    self.navigationItem.leftBarButtonItem=_btnDelete;
-}
--(void)pressDelete{
-    
-}
-
--(void)pressFinish{
-    _isEdit=NO;
-    self.navigationItem.rightBarButtonItem=_btnEdit;
-    [_tableView setEditing:NO];
-    self.navigationItem.leftBarButtonItem=nil;
-    
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSInteger numrow=[[_arrayData objectAtIndex:section]count];
-    return numrow;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return _arrayData.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString* cellstr=@"cell";
-    UITableViewCell* cell=[_tableView dequeueReusableCellWithIdentifier:cellstr];
-    if(cell==nil){
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellstr];
+    if(res.statusCode==500){
+        NSLog(@"服务器待机或者关机");
     }
-    cell.textLabel.text=_arrayData[indexPath.section][indexPath.row];
-    return cell;
+    }
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
+    [_data appendData:data];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection{
+    NSString *str=[[NSString alloc]initWithData:_data encoding:NSUTF8StringEncoding];
 }
 
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return UITableViewCellEditingStyleDelete;
-}
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    [_arrayData removeObjectAtIndex:indexPath.row];
-    [_tableView reloadData];
-}
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{\
-    NSLog(@"选中单元格");
-}
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"取消选择单元格，%ld,%ld",(long)indexPath.section,(long)indexPath.row);
-}
+
 
 
 

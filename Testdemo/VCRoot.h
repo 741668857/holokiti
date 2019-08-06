@@ -8,16 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VCRoot : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface VCRoot : UIViewController<NSURLConnectionDelegate,NSURLConnectionDataDelegate>
 {
-    UITableView *_tableView;
-    NSMutableArray* _arrayData;//声明一个数据源
-    
-    UIBarButtonItem *_btnEdit;
-    UIBarButtonItem *_btnFinish;
-    UIBarButtonItem *_btnDelete;
-    BOOL _isEdit;
+    NSURLConnection *_connect;
+    NSMutableData *_data;
 }
+
 
 
 
