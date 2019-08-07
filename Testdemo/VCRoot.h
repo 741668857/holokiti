@@ -10,8 +10,14 @@
 
 @interface VCRoot : UIViewController<NSURLConnectionDelegate,NSURLConnectionDataDelegate>
 {
-    NSURLConnection *_connect;
-    NSMutableData *_data;
+
+    NSThread* _thread1;
+    NSThread* _thread2;
+    NSInteger *_counter;
+    NSLock *_lock;
+    NSOperationQueue* _queue;
+    
+    
 }
 
 

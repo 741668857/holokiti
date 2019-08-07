@@ -22,48 +22,77 @@
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
     self.title=@"弟弟行为";
-    UIButton *btn=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn.frame=CGRectMake(100, 100, 150, 100);
-    btn.titleLabel.font=[UIFont systemFontOfSize:20];
-    [btn setTitle:@"来呀，快活呀" forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(pressBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
+    UIButton *btn1=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn1.frame=CGRectMake(90, 100, 200, 50);
+    [btn1 setTitle:@"快来按我呀沙雕" forState:UIControlStateNormal];
+    [btn1 addTarget:self action:@selector(pressBtn1:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
+    
+    UIButton *btn2=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn2.frame=CGRectMake(90, 200, 200, 50);
+    [btn2 setTitle:@"别碰这个按钮1" forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(pressBtn2:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
+    
+    UIButton *btn3=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn3.frame=CGRectMake(90, 300, 200, 50);
+    [btn3 setTitle:@"别碰这个按钮2" forState:UIControlStateNormal];
+    [btn3 addTarget:self action:@selector(pressBtn3:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn3];
+    _lock=[[NSLock alloc]init];
+    
+    _queue=[[NSOperationQueue alloc]init];
+    [_queue setMaxConcurrentOperationCount:5];
+ 
 }
 
--(void)pressBtn:(UIButton*)btn{
-    NSString *strURL=@"http://www.baidu.com";
-    NSURL *url=[NSURL URLWithString:strURL];
-    NSURLRequest *request=[NSURLRequest requestWithURL:url];
-    _connect=[NSURLConnection connectionWithRequest:request delegate:self];
-    _data=[[NSMutableData alloc]init];
-}
+-(void)pressBtn1:(UIButton*)btn{
+    [_queue addOperationWithBlock:^{
+        while (true) {
+            NSLog(@"弟弟行为");
+        }
+    }];
+     }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
-    NSLog(@"error=%@",error);
-}
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
-    NSHTTPURLResponse *res=(NSHTTPURLResponse*)response;
-    if(res.statusCode==200){
-        NSLog(@"连接成功，服务器正常");
+-(void)actNew:(NSThread*) thread{
+    int i=1;
+    while (true) {
+        i++;
+        NSLog(@"i=%d",i);
     }
-    if(res.statusCode==404){
-        NSLog(@"服务器正常开启，没有找到链接地址页面或数据");
-    }
-    if(res.statusCode==500){
-        NSLog(@"服务器待机或者关机");
-    }
-    }
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
-    [_data appendData:data];
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection{
-    NSString *str=[[NSString alloc]initWithData:_data encoding:NSUTF8StringEncoding];
+-(void)pressBtn2:(UIButton*)btn{
+    _thread1=[[NSThread alloc]initWithTarget:self selector:@selector(act1:) object:nil];
+    [_thread1 start];
+}
+-(void)act1:(NSThread*)thread{
+    int i=0;
+    while (true) {
+        i++;
+        if(i>2000){
+            break;
+    }
+         NSLog(@"act1!");
+}
 }
 
 
+-(void)pressBtn3:(UIButton*)btn{
+    _thread2=[[NSThread alloc]initWithTarget:self selector:@selector(act2:) object:nil];
+    [_thread2 start];
+}
+-(void)act2:(NSThread*)thread{
+    int i=0;
+    while (true) {
+        i++;
+        if(i>2000){
+            break;
+        }
+        NSLog(@"act2");
+    }
+}
 
 
 
