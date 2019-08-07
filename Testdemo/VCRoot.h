@@ -7,17 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface VCRoot : UIViewController<NSURLConnectionDelegate,NSURLConnectionDataDelegate>
+#import <AVFoundation/AVFoundation.h>
+@interface VCRoot : UIViewController<AVAudioPlayerDelegate>
 {
-
-    NSThread* _thread1;
-    NSThread* _thread2;
-    NSInteger *_counter;
-    NSLock *_lock;
-    NSOperationQueue* _queue;
-    
-    
+    UIButton *_btnPlay;
+    UIButton *_btnPause;
+    UIButton *_btnStop;
+    UIProgressView *_musicProgress;
+    UISlider *_volSlider;
+    UISlider *_musicSlider;
+    AVAudioPlayer *_player;
+    NSTimer *_timer;
 }
 
 

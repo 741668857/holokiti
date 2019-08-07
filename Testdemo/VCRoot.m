@@ -22,77 +22,99 @@
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
     self.title=@"弟弟行为";
-    UIButton *btn1=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn1.frame=CGRectMake(90, 100, 200, 50);
-    [btn1 setTitle:@"快来按我呀沙雕" forState:UIControlStateNormal];
-    [btn1 addTarget:self action:@selector(pressBtn1:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn1];
-    
-    UIButton *btn2=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn2.frame=CGRectMake(90, 200, 200, 50);
-    [btn2 setTitle:@"别碰这个按钮1" forState:UIControlStateNormal];
-    [btn2 addTarget:self action:@selector(pressBtn2:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn2];
-    
-    UIButton *btn3=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn3.frame=CGRectMake(90, 300, 200, 50);
-    [btn3 setTitle:@"别碰这个按钮2" forState:UIControlStateNormal];
-    [btn3 addTarget:self action:@selector(pressBtn3:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn3];
-    _lock=[[NSLock alloc]init];
-    
-    _queue=[[NSOperationQueue alloc]init];
-    [_queue setMaxConcurrentOperationCount:5];
- 
-}
-
--(void)pressBtn1:(UIButton*)btn{
-    [_queue addOperationWithBlock:^{
-        while (true) {
-            NSLog(@"弟弟行为");
+    for(int i=0;i<3;i++){
+        UIButton *btn=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+        btn.frame=CGRectMake(100, 100+80*i, 200, 20);
+        btn.tag=101+i;
+        if(btn.tag==101){
+            [btn setTitle:@"燃起来吧休年OWO" forState:UIControlStateNormal];
+            [btn addTarget:self action:@selector(pressPlay) forControlEvents:UIControlEventTouchUpInside];
         }
-    }];
-     }
-
-
--(void)actNew:(NSThread*) thread{
-    int i=1;
-    while (true) {
-        i++;
-        NSLog(@"i=%d",i);
-    }
-}
-
--(void)pressBtn2:(UIButton*)btn{
-    _thread1=[[NSThread alloc]initWithTarget:self selector:@selector(act1:) object:nil];
-    [_thread1 start];
-}
--(void)act1:(NSThread*)thread{
-    int i=0;
-    while (true) {
-        i++;
-        if(i>2000){
-            break;
-    }
-         NSLog(@"act1!");
-}
-}
-
-
--(void)pressBtn3:(UIButton*)btn{
-    _thread2=[[NSThread alloc]initWithTarget:self selector:@selector(act2:) object:nil];
-    [_thread2 start];
-}
--(void)act2:(NSThread*)thread{
-    int i=0;
-    while (true) {
-        i++;
-        if(i>2000){
-            break;
+        if(btn.tag==102){
+            [btn setTitle:@"暂停？那可太可惜了吧^_^" forState:UIControlStateNormal];
+            [btn addTarget:self action:@selector(pressPause) forControlEvents:UIControlEventTouchUpInside];
         }
-        NSLog(@"act2");
+        if(btn.tag==103){
+            [btn setTitle:@"停止？停止你的行为休年QAQ" forState:UIControlStateNormal];
+            [btn addTarget:self action:@selector(pressStop) forControlEvents:UIControlEventTouchUpInside];
+        }
+        [self.view addSubview:btn];
+        
     }
+    
+    _musicProgress=[[UIProgressView alloc]init];
+    _musicProgress.frame=CGRectMake(0, 350, 400, 30);
+    [self.view addSubview:_musicProgress];
+    
+    _volSlider=[[UISlider alloc]init];
+    _volSlider.frame=CGRectMake(0, 420, 400, 30);
+    _volSlider.maximumValue=100;
+    _volSlider.minimumValue=0;
+    _volSlider.value=50;
+    [_volSlider addTarget:self action:@selector(volChange) forControlEvents:UIControlEventValueChanged];
+    
+    _musicSlider=[[UISlider alloc]init];
+    _musicSlider.frame=CGRectMake(0, 470, 400, 30);
+    _musicSlider.minimumValue=0;
+    _musicSlider.maximumValue=400;
+    [_musicSlider addTarget:self action:@selector(musicChange) forControlEvents:UIControlEventValueChanged];
+    
+    
+    _timer=[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
+    
+    [self.view addSubview:_volSlider];
+    [self.view addSubview:_musicSlider];
+    
+    [self createAVPlayer];
+    
 }
+
+-(void)pressPlay{
+    NSLog(@"正在播放音乐呢休年-。-");
+    [_player play];
+}
+
+-(void)pressPause{
+    NSLog(@"暂停播放了🐻del");
+    [_player pause];
+}
+
+-(void)pressStop{
+    NSLog(@"你竟然停止播放！");
+    [_player stop];
+    _player.currentTime=0;
+}
+
+-(void)volChange{
+    NSLog(@"%f",_volSlider.value);
+    _player.volume=_volSlider.value/100;
+}
+
+-(void)updateTime{
+    _musicProgress.progress=_player.currentTime/_player.duration;
+}
+
+-(void)musicChange{
+    _player.currentTime=_musicSlider.value;
+}
+
+
+
+-(void)createAVPlayer{
+    NSString* str=[[NSBundle mainBundle]pathForResource:@"2" ofType:@"mp3"];
+    NSURL* urlmusic=[NSURL fileURLWithPath:str];
+    _player=[[AVAudioPlayer alloc]initWithContentsOfURL:urlmusic error:nil];
+    
+    [_player prepareToPlay];
+    _player.numberOfLoops=-1;
+    _player.volume=0.5;
+}
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+    [_timer invalidate];
+}
+
+
 
 
 
