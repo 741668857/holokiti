@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 @interface VCRoot : UIViewController<AVAudioPlayerDelegate>
 {
-    UIImageView *_imageview;
+    AVAudioPlayer * _player;
 }
 
 
